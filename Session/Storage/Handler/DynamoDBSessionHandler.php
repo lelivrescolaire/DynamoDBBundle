@@ -65,6 +65,11 @@ class DynamoDBSessionHandler implements \SessionHandlerInterface
         return $this->getSessionHandler()->write();
     }
 
+    public function getDynamoDB()
+    {
+        return $this->dynamoDB;
+    }
+
     public function getOptions($computed = true)
     {
         if (!$computed) {
@@ -79,7 +84,7 @@ class DynamoDBSessionHandler implements \SessionHandlerInterface
                 ),
                 $this->inputOptions,
                 array(
-                    'dynamodb_client'  => $this->getDynamoDB(),
+                    'dynamodb_client'  => $this->getDynamoDB()->getClient(),
                 )
             );
         }
