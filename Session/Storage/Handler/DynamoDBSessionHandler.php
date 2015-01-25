@@ -3,6 +3,7 @@
 namespace LLS\Bundle\DynamoDBBundle\Session\Storage\Handler;
 
 use Aws\DynamoDb\Session\SessionHandler;
+use LLS\Bundle\DynamoDBBundle\Model\DynamoDB;
 
 class DynamoDBSessionHandler implements \SessionHandlerInterface
 {
@@ -19,8 +20,8 @@ class DynamoDBSessionHandler implements \SessionHandlerInterface
 
     public function __construct(DynamoDB $dynamoDB, array $options = array())
     {
-        $this->dynamoDB    = $dynamoDB;
-        $this->inputOption = $options;
+        $this->dynamoDB     = $dynamoDB;
+        $this->inputOptions = $options;
     }
 
     /**
