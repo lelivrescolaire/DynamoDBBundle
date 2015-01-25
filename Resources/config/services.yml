@@ -1,0 +1,10 @@
+parameters:
+    llssqs.service.type.dynamodb.class:      'LLS\Bundle\DynamoDBBundle\Model\DynamoDB'
+
+services:
+    llsdynamodb.service.type.dynamodb:
+        class: %llsaws.service.type.generic.factory.class%
+        arguments:
+            - %llssqs.service.type.dynamodb.class%
+        tags:
+            - {name: llsaws.service.type, alias: dynamodb}
