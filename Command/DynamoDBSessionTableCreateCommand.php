@@ -7,7 +7,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 use LLS\Bundle\DynamoDBBundle\Session\Storage\Handler\DynamoDBSessionHandler;
 
-class CreateSessionTableCommand extends ContainerAwareCommand
+class DynamoDBSessionTableCreateCommand extends ContainerAwareCommand
 {
     protected function configure()
     {
