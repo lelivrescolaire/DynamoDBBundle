@@ -25,7 +25,7 @@ class DynamoDB implements DynamoDBInterface
      */
     public function __construct(IdentityInterface $identity, ClientFactoryInterface $clientFactory)
     {
-        $this->client = $clientFactory->createClient('DynamoDB', $identity);
+        $this->client = $clientFactory->createClient('DynamoDb', $identity);
     }
 
     /**
