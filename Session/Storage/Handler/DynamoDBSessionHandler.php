@@ -37,7 +37,7 @@ class DynamoDBSessionHandler implements \SessionHandlerInterface
      */
     public function destroy($session_id)
     {
-        return $this->getSessionHandler()->destroy();
+        return $this->getSessionHandler()->destroy($session_id);
     }
 
     /**
@@ -45,7 +45,7 @@ class DynamoDBSessionHandler implements \SessionHandlerInterface
      */
     public function gc($maxlifetime)
     {
-        return $this->getSessionHandler()->gc();
+        return $this->getSessionHandler()->gc($maxlifetime);
     }
 
     /**
@@ -53,7 +53,7 @@ class DynamoDBSessionHandler implements \SessionHandlerInterface
      */
     public function open($save_path, $name)
     {
-        return $this->getSessionHandler()->open();
+        return $this->getSessionHandler()->open($save_path, $name);
     }
 
     /**
@@ -61,7 +61,7 @@ class DynamoDBSessionHandler implements \SessionHandlerInterface
      */
     public function read($session_id)
     {
-        return $this->getSessionHandler()->read();
+        return $this->getSessionHandler()->read($session_id);
     }
 
     /**
@@ -69,7 +69,7 @@ class DynamoDBSessionHandler implements \SessionHandlerInterface
      */
     public function write($session_id, $session_data)
     {
-        return $this->getSessionHandler()->write();
+        return $this->getSessionHandler()->write($session_id, $session_data);
     }
 
     public function createSessionsTable()
