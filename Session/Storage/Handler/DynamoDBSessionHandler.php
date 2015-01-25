@@ -6,10 +6,16 @@ use Aws\DynamoDb\Session\SessionHandler;
 
 class DynamoDBSessionHandler implements \SessionHandlerInterface
 {
+    const DEFAUT_TABLE_NAME = 'sessions';
+    const DEFAUT_READ_PROVISIONED_THROUGHPUT  = 5;
+    const DEFAUT_WRITE_PROVISIONED_THROUGHPUT = 5;
+
     protected $dynamoDB;
     protected $inputOptions;
     protected $options;
     protected $sessionHandler;
+    protected $readProvisionedThroughput  = DynamoDBSessionHandler::DEFAUT_READ_PROVISIONED_THROUGHPUT;
+    protected $writeProvisionedThroughput = DynamoDBSessionHandler::DEFAUT_WRITE_PROVISIONED_THROUGHPUT;
 
     public function __construct(DynamoDB $dynamoDB, array $options = array())
     {
@@ -65,6 +71,11 @@ class DynamoDBSessionHandler implements \SessionHandlerInterface
         return $this->getSessionHandler()->write();
     }
 
+    public function createSessionsTable()
+    {
+        return $this->getSessionHandler()->createSessionsTable($this->readProvisionedThroughput, $this->writeProvisionedThroughput);
+    }
+
     public function getDynamoDB()
     {
         return $this->dynamoDB;
@@ -79,7 +90,7 @@ class DynamoDBSessionHandler implements \SessionHandlerInterface
         if (!$this->options) {
             $this->options = array_merge(
                 array(
-                    'table_name'       => 'sessions',
+                    'table_name'       => DynamoDBSessionHandler::DEFAUT_TABLE_NAME,
                     'locking_strategy' => 'pessimistic',
                 ),
                 $this->inputOptions,
@@ -99,5 +110,11 @@ class DynamoDBSessionHandler implements \SessionHandlerInterface
         }
 
         return $this->sessionHandler;
+    }
+
+    protected function setProvisionedThroughput($read = DynamoDBSessionHandler::DEFAUT_READ_PROVISIONED_THROUGHPUT, $write = DynamoDBSessionHandler::DEFAUT_WRITE_PROVISIONED_THROUGHPUT)
+    {
+        $this->readProvisionedThroughput  = $read;
+        $this->writeProvisionedThroughput = $write;
     }
 }
