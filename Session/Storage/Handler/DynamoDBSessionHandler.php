@@ -5,6 +5,11 @@ namespace LLS\Bundle\DynamoDBBundle\Session\Storage\Handler;
 use Aws\DynamoDb\Session\SessionHandler;
 use LLS\Bundle\DynamoDBBundle\Model\DynamoDB;
 
+/**
+ * DynamoDB Session Handler
+ *
+ * @author Jérémy Jourdin <jeremy.jourdin@lelivrescolaire.fr>
+ */
 class DynamoDBSessionHandler implements \SessionHandlerInterface
 {
     const DEFAUT_TABLE_NAME = 'sessions';
@@ -18,6 +23,10 @@ class DynamoDBSessionHandler implements \SessionHandlerInterface
     protected $readProvisionedThroughput  = DynamoDBSessionHandler::DEFAUT_READ_PROVISIONED_THROUGHPUT;
     protected $writeProvisionedThroughput = DynamoDBSessionHandler::DEFAUT_WRITE_PROVISIONED_THROUGHPUT;
 
+    /**
+     * @param DynamoDB $dynamoDB DynamoDB Client
+     * @param array    $options  Handler options
+     */
     public function __construct(DynamoDB $dynamoDB, array $options = array())
     {
         $this->dynamoDB     = $dynamoDB;
@@ -35,9 +44,9 @@ class DynamoDBSessionHandler implements \SessionHandlerInterface
     /**
      * {@inheritdoc}
      */
-    public function destroy($session_id)
+    public function destroy($sessionId)
     {
-        return $this->getSessionHandler()->destroy($session_id);
+        return $this->getSessionHandler()->destroy($sessionId);
     }
 
     /**
@@ -51,37 +60,54 @@ class DynamoDBSessionHandler implements \SessionHandlerInterface
     /**
      * {@inheritdoc}
      */
-    public function open($save_path, $name)
+    public function open($savePath, $name)
     {
-        return $this->getSessionHandler()->open($save_path, $name);
+        return $this->getSessionHandler()->open($savePath, $name);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function read($session_id)
+    public function read($sessionId)
     {
-        return $this->getSessionHandler()->read($session_id);
+        return $this->getSessionHandler()->read($sessionId);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function write($session_id, $session_data)
+    public function write($sessionId, $sessionData)
     {
-        return $this->getSessionHandler()->write($session_id, $session_data);
+        return $this->getSessionHandler()->write($sessionId, $sessionData);
     }
 
+    /**
+     * Create a table on DynamoDB to handle sessions
+     *
+     * @return boolean
+     */
     public function createSessionsTable()
     {
         return $this->getSessionHandler()->createSessionsTable($this->readProvisionedThroughput, $this->writeProvisionedThroughput);
     }
 
+    /**
+     * Get DynamoDB client
+     *
+     * @return DynamoDB DynamoDB Client
+     */
     public function getDynamoDB()
     {
         return $this->dynamoDB;
     }
 
+    /**
+     * Get handler options
+     *
+     * @param boolean $computed Whether comupte options or return user provided only
+     *
+     * @return array             Options
+     */
     public function getOptions($computed = true)
     {
         if (!$computed) {
