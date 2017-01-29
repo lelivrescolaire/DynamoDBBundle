@@ -1,4 +1,4 @@
-[![LeLivreScolaire](http://h2010.associationhec.com/images/news/logo-officiel-jpeg.jpg)](http://www.lelivrescolaire.fr)
+[![LeLivreScolaire](http://osonsinnover.education/concours/wp-content/uploads/sites/2/2015/07/le-livre-scolaire.jpg)](http://www.lelivrescolaire.fr)
 
 # *DynamoDB Bundle* [![Build Status](https://secure.travis-ci.org/lelivrescolaire/MonologExtraBundle.png?branch=master)](http://travis-ci.org/lelivrescolaire/DynamoDBBundle) [![Coverage Status](https://coveralls.io/repos/lelivrescolaire/MonologExtraBundle/badge.png?branch=master)](https://coveralls.io/r/lelivrescolaire/DynamoDBBundle?branch=master)
 
